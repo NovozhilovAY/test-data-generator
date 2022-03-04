@@ -58,23 +58,18 @@ async function start(id, arrayOfCoordinates, ms){
 
 }
 
-function setCookies(login, password) {
+function getToken(login, password) {
     function reqListener(event) {
-        authCookie = this.getResponseHeader('Set-Cookie')[0].split(';')[0];
+        console.log(this.responseText);
+        jwtToken = JSON.parse(this.responseText).token;
     }
-    let formData = new FormData();
-    formData.append('username', login);
-    formData.append('password', password);
-    let urlEncodedData = "",
-        urlEncodedDataPairs = [];
-    urlEncodedDataPairs.push( encodeURIComponent( 'username' ) + '=' + encodeURIComponent( login ) );
-    urlEncodedDataPairs.push( encodeURIComponent( 'password' ) + '=' + encodeURIComponent( password ) );
-    urlEncodedData = urlEncodedDataPairs.join( '&' ).replace( /%20/g, '+' );
+    let user = JSON.stringify({username: login, password: password});
+
     var http = new XMLHttpRequest();
     http.onload = reqListener;
-    http.open("POST","http://localhost:8080/login", false, );
-    http.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    http.send(urlEncodedData);
+    http.open("POST","http://localhost:8080/api/auth/login", false);
+    http.setRequestHeader('Content-Type', 'application/json');
+    http.send(user);
 }
 
 function updateCoordinate(id, coordinate){
@@ -84,10 +79,9 @@ function updateCoordinate(id, coordinate){
     }
     var http = new XMLHttpRequest();
     http.onload = reqListener;
-    http.setDisableHeaderCheck(true);
     http.open("PATCH","http://localhost:8080/api/cars/coordinates/" + id, true);
     http.setRequestHeader('Content-Type', 'application/json;');
-    http.setRequestHeader('Cookie', authCookie);
+    http.setRequestHeader('Authorization', "Bearer "+ jwtToken);
     http.send(JSON.stringify(coordinate));
 }
 
@@ -120,18 +114,18 @@ const to2 = { type: 'Point', coordinates: [43.8581641378961, 56.34519348329877] 
 const from3 = { type: 'Point', coordinates: [44.00961905427317, 56.257559444121654] };
 const to3 = { type: 'Point', coordinates: [44.03192750304271, 56.30026722780019] };
 
-var authCookie;
-setCookies('device', 'device');
+let jwtToken;
+getToken('device', 'device');
 
 
 getRoute(from1, to1).then(res => {
-    start(1, res, 50);
+    start(1, res, 2000);
 });
 
 getRoute(from2, to2).then(res => {
-    start(3, res, 50);
+    start(3, res, 2000);
 });
 
 getRoute(from3, to3).then(res => {
-    start(4, res, 50);
+    start(4, res, 2000);
 });
