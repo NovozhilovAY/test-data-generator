@@ -114,6 +114,29 @@ const to2 = { type: 'Point', coordinates: [43.8581641378961, 56.34519348329877] 
 const from3 = { type: 'Point', coordinates: [44.00961905427317, 56.257559444121654] };
 const to3 = { type: 'Point', coordinates: [44.03192750304271, 56.30026722780019] };
 
+const from4 = { type: 'Point', coordinates: [44.057927, 56.352712] };
+const to4 = { type: 'Point', coordinates: [43.851628, 56.293964] };
+
+const from5 = { type: 'Point', coordinates: [43.892313, 56.288791] };
+const to5 = { type: 'Point', coordinates: [44.102454, 56.209763] };
+
+const from6 = { type: 'Point', coordinates: [43.768631, 56.309760] };
+const to6 = { type: 'Point', coordinates: [43.950451, 56.325273] };
+
+const from7 = { type: 'Point', coordinates: [43.890134, 56.200315] };
+const to7 = { type: 'Point', coordinates: [43.936946, 56.218987] };
+
+const from8 = { type: 'Point', coordinates: [44.085328, 56.243411] };
+const to8 = { type: 'Point', coordinates: [44.049560, 56.276179] };
+
+const from9 = { type: 'Point', coordinates: [44.066605, 56.299817] };
+const to9 = { type: 'Point', coordinates: [44.100259, 56.238347] };
+
+const from10 = { type: 'Point', coordinates: [43.924463, 56.339637] };
+const to10 = { type: 'Point', coordinates: [43.804546, 56.382661] };
+
+//
+
 let jwtToken;
 getToken('device', 'device');
 
@@ -123,9 +146,37 @@ getRoute(from1, to1).then(res => {
 });
 
 getRoute(from2, to2).then(res => {
-    start(3, res, 2000);
+    start(2, res, 2000);
 });
 
 getRoute(from3, to3).then(res => {
+    start(3, res, 2000);
+});
+
+getRoute(from4, to4).then(res => {
     start(4, res, 2000);
+});
+
+getRoute(from5, to5).then(res => {
+    start(5, res, 2000);
+});
+
+getRoute(from6, to6).then(res => {
+    start(6, res, 2000);
+});
+
+getRoute(from7, to7).then(res => {
+    start(7, res, 2000);
+});
+
+getRoute(from8, to8).then(res => {
+    start(8, res, 2000);
+});
+
+getRoute(from9, to9).then(res => {
+    start(9, res, 2000);
+});
+
+getRoute(from10, to10).then(res => {
+    start(10, res, 2000);
 });
